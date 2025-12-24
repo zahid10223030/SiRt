@@ -4,21 +4,21 @@
      <!-- Page Heading -->
       
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Tambah penduduk</h1>
+            <h1 class="h3 mb-0 text-gray-800">Ubah penduduk</h1>
         </div>
 
         <!-- form-start -->
         <div>
-            <form action="/resident" method="post">
+            <form action="/resident/ {{ $resident->id }}" method="post">
                     @csrf
-                    @method('POST')
+                    @method('PUT')
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group mb-3">
                                 <label for="nik">NIK</label>
                                 <input type="number" inputmode="numeric" 
                                 name="nik" id="nik" class="form-control
-                                @error ('nik') is-invalid @enderror" value="{{ old('nik') }}">
+                                @error ('nik') is-invalid @enderror" value="{{ old('nik', $resident->nik) }}">
                                 @error('nik')
                                     <span class="invalid-feedback">
                                         {{$message}}
@@ -29,7 +29,7 @@
                                 <label for="nama">Nama Lengkap</label>
                                 <input type="text" name="nama" 
                                 id="nama" class="form-control
-                                @error ('nama') is-invalid @enderror" value="{{ old('nama') }}">
+                                @error ('nama') is-invalid @enderror" value="{{ old('nama', $resident->nama) }}">
                                 @error('nama')
                                     <span class="invalid-feedback">
                                         {{$message}}
@@ -50,7 +50,7 @@
                                             "value"=>"perempuan",
                                             ],
                                             ] as $item)
-                                            <option value="{{ $item->value }}" @selected(old('gender') == $item->value)>
+                                            <option value="{{ $item->value }}" @selected(old('gender', $resident->gender) == $item->value)>
                                             {{ $item->label }}</option>
                                     @endforeach
                                 </select>
@@ -64,7 +64,7 @@
                                 <label for="tanggal_lahir">Tanggal Lahir</label>
                                 <input type="date" name="tanggal_lahir"
                                 id="tanggal_lahir" class="form-control
-                                @error ('tanggal_lahir') is-invalid @enderror" value="{{ old('tanggal_lahir') }}">
+                                @error ('tanggal_lahir') is-invalid @enderror" value="{{ old('tanggal_lahir', $resident->tanggal_lahir) }}">
                                 @error('tanggal_lahir')
                                     <span class="invalid-feedback">
                                         {{$message}}
@@ -75,7 +75,7 @@
                                 <label for="tempat_lahir">Tempat Lahir</label>
                                 <input type="text" name="tempat_lahir" 
                                 id="tempat_lahir" class="form-control
-                                @error ('tempat_lahir') is-invalid @enderror" value="{{ old('tempat_lahir') }}">
+                                @error ('tempat_lahir') is-invalid @enderror" value="{{ old('tempat_lahir', $resident->tempat_lahir) }}">
                                 @error('tempat_lahir')
                                     <span class="invalid-feedback">
                                         {{$message}}
@@ -87,7 +87,7 @@
                                 <textarea name="alamat" id="alamat" cols="30"
                                 rows="10" class="form-control
                                 @error ('alamat') is-invalid @enderror">
-                                {{ old('alamat') }}
+                                {{ old('alamat', $resident->alamat) }}
                                 </textarea>
                                 @error('alamat')
                                     <span class="invalid-feedback">
@@ -99,7 +99,7 @@
                                 <label for="agama">agama</label>
                                 <input type="text" name="agama" 
                                 id="agama" class="form-control
-                                @error ('agama') is-invalid @enderror" value="{{ old('agama') }}">
+                                @error ('agama') is-invalid @enderror" value="{{ old('agama', $resident->agama) }}">
                                 @error('agama')
                                     <span class="invalid-feedback">
                                         {{$message}}
@@ -128,7 +128,7 @@
                                             "value"=>"cerai_mati",
                                             ],
                                             ] as $item)
-                                            <option value="{{ $item->value }}" @selected(old('status_perkawinan') == $item->value)>
+                                            <option value="{{ $item->value }}" @selected(old('status_perkawinan', $resident->status_perkawinan) == $item->value)>
                                             {{ $item->label }}</option>
                                     @endforeach
                                 </select>
@@ -142,7 +142,7 @@
                                 <label for="pekerjaan">Pekerjaan</label>
                                 <input type="text" name="pekerjaan" 
                                 id="pekerjaan" class="form-control
-                                @error ('pekerjaan') is-invalid @enderror" value="{{ old('pekerjaan') }}">
+                                @error ('pekerjaan') is-invalid @enderror" value="{{ old('pekerjaan', $resident->pekerjaan) }}">
                                 @error('pekerjaan')
                                     <span class="invalid-feedback">
                                         {{$message}}
@@ -153,7 +153,7 @@
                                 <label for="no_hp">No HP</label>
                                 <input type="text" inputmode="numeric" name="no_hp" 
                                 id="no_hp" class="form-control
-                                @error ('no_hp') is-invalid @enderror" value="{{ old('no_hp') }}">
+                                @error ('no_hp') is-invalid @enderror" value="{{ old('no_hp', $resident->no_hp) }}">
                                 @error('no_hp')
                                     <span class="invalid-feedback">
                                         {{$message}}
@@ -178,7 +178,7 @@
                                             "value"=>"meninggal",
                                             ],
                                             ] as $item)
-                                            <option value="{{ $item->value }}" @selected(old('status') == $item->value)>
+                                            <option value="{{ $item->value }}" @selected(old('status', $resident->status) == $item->value)>
                                             {{ $item->label }}</option>
                                     @endforeach
                                 </select>
@@ -194,8 +194,8 @@
                                 <a href="/resident" class="btn btn-outline-secondary">
                                     Kembali
                                 </a>
-                                <button type="submit" class="btn btn-primary">
-                                    Simpan
+                                <button type="submit" class="btn btn-warning">
+                                    Simpan Perubahan
                                 </button>
                             </div>
                         </div>
