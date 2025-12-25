@@ -1,0 +1,19 @@
+----- ALUR -----
+BUAT SKEMA TABEL "roles" dan "users"
+
+Alur Login untuk masuk ke aplikasi 💻
+
+🙍‍♂️ sebagai penduduk (User) :
+    ➡ melakukan registrasi akun pada halaman "Register" dengan inputan berikut :
+    > nama
+    > email
+    > password
+    > status  -> berikan defaultnya "submitted"
+    > role_id -> berikan defaultnya adalah id cari note "Penduduk"
+    ➡ menunggu persetujuan dari admin untuk bisa masuk ke aplikasi ('menunggu status approved')
+
+🦹‍♂️ sebagai Admin :
+    ➡ akunnya akan dibuat menggunakan seeder (jadi cuma ada 1 admin pada app ini)
+    ➡ pastikan value dari role_id nya adalah id dari role "Admin"
+    ➡ Login seperti biasa menggunakan email dan password
+    ➡ menyetujui/menolak pendaftaran akun penduduk

@@ -1,17 +1,23 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResidentController;
 use Illuminate\Support\Facades\Route;
 // use Laravel\Fortify\Features;
 // use Livewire\Volt\Volt;
 
-Route::get('/', function () {
-    return view('layouts.app');
-})->name('home');
+// Auth
+Route::get('/', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'authenticate']);
+Route::post('/logout', [AuthController::class, 'logout']);
+Route::get('/register', [AuthController::class, 'registerView']);
+Route::post('/register', [AuthController::class, 'register']);
+
 Route::get('/dashboard', function () {
     return view('pages.dashboard');
 })->name('dashboard');
 
+//resident hak akses admin
 Route::get('/resident', [ResidentController::class, 'index']);
 Route::get('/resident/create', [ResidentController::class, 'create']);
 Route::get('/resident/{id}', [ResidentController::class, 'edit']);

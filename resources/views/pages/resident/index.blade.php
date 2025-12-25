@@ -33,9 +33,9 @@
                                               @if (count($residents) < 1)
                                                 <tbody>
                                                         <tr>
-                                                              <td colspan="11">
-                                                                <p class="pt-3 text-canter">Tidak ada data</p>
-                                                              </td>  
+                                                                 <td colspan="11">
+                                                                           <p class="pt-3 text-center">Tidak ada data</p>
+                                                                 </td>  
                                                         </tr>
                                                 </tbody>
                                               @else
