@@ -41,7 +41,7 @@
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block bg-login-image">
                                 <img class="img-fluid"
-                                src="{{ asset('template/img/logo-removebg.png') }}">
+                                src="{{ asset('template/img/logo_removebg.png') }}">
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">

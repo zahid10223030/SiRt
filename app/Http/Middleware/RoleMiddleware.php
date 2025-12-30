@@ -18,14 +18,14 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
         if (!Auth::check()) {
-            return back(); // atau redirect()->route('login')
+            return redirect('/'); // atau redirect()->route('login')
         }
 
         // 2. Baru ambil role setelah dipastikan login
         $roleName = Role::find(Auth::user()->role_id);
 
         if (!$roleName || !in_array($roleName->name, $roles)) {
-            return back(); // atau redirect dengan pesan
+            return redirect('/')->with('error', 'Anda tidak memiliki akses ke halaman ini'); // atau redirect dengan pesan
         }
 
         return $next($request);

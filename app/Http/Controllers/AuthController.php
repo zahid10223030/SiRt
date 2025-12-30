@@ -11,9 +11,11 @@ class AuthController extends Controller
 {
     // login
     public function login(){
+        
         if(Auth::check()){
-            return back();
+            return redirect('/dashboard');
         }
+        // dd('Test: method login dipanggil');
         return view('pages.auth.login');
     }
 
@@ -35,20 +37,25 @@ class AuthController extends Controller
 
             // dd(Auth::user());
             if ($userStatus == 'submitted'){
-                return back()->withErrors([
-                    'email' => 'Akun anda masih menunggu persetujuan admin',]);
+                $this->_logout($request);
+                // Flash message SETELAH session baru dibuat
+                return redirect('/')->with('error', 'Akun anda masih menunggu persetujuan admin');
             }
             else if($userStatus == 'rejected'){
-                return back()->withErrors([
-                    'email' => 'Akun anda telah ditolak admin',]);
+                $this->_logout($request);
+                return redirect('/')->with('error', 'Akun anda telah ditolak oleh admin');
             }
 
             return redirect()->intended('dashboard');
         }
- 
-        return back()->withErrors([
-            'email' => 'Terjadi kesalahan, periksa kembali email atau password anda!',
-        ])->onlyInput('email');
+
+        return redirect('/')->with('error', 'Email atau password yang Anda masukkan salah.');
+
+        // return redirect('/')
+        // ->withErrors([
+        //     'email' => 'Email atau password yang Anda masukkan salah.'
+        // ])
+        // ->withInput($request->only('email'));
     }
 
     // registrasi
@@ -81,17 +88,19 @@ class AuthController extends Controller
         menunggu persetujuan dari Admin');
     }
 
+    public function _logout(Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+    }
+
     // logout
     public function logout(Request $request){
     if(!Auth::check()){
         return redirect('/');
     }
     
-    Auth::logout();
- 
-    $request->session()->invalidate();
- 
-    $request->session()->regenerateToken();
+    $this->_logout($request); 
  
     return redirect('/');
     }
