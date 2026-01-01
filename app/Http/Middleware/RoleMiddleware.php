@@ -18,7 +18,9 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
         if (!Auth::check()) {
-            return redirect('/'); // atau redirect()->route('login')
+            return redirect('/')->withErrors([
+                'email' => 'Anda harus login terlebih dahulu',
+            ]); // atau redirect()->route('login')
         }
 
         // 2. Baru ambil role setelah dipastikan login
