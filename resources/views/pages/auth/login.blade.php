@@ -29,6 +29,36 @@
     @endif -->
 
     <div class="container">
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="close" data-dismiss="alert">
+                <span>&times;</span>
+            </button>
+        </div>
+    @endif
+
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert">
+                <span>&times;</span>
+            </button>
+        </div>
+    @endif
+
+    @if ($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul class="mb-0 pl-3">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
+    </div>
+    @endif
 
         <!-- Outer Row -->
         <div class="row justify-content-center">
@@ -41,7 +71,7 @@
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block bg-login-image">
                                 <img class="img-fluid"
-                                src="{{ asset('template/img/logo-removebg.png') }}">
+                                src="{{ asset('template/img/logo_removebg.png') }}">
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
@@ -52,13 +82,25 @@
                                         @csrf
                                         @method('POST')
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
+                                            <input type="email" class="form-control form-control-user {{ $errors->has('email') ? 'is-invalid' : '' }}"
                                                 id="inputEmail" name="email" aria-describedby="emailHelp"
-                                                placeholder="Masukkan alamat email..">
+                                                placeholder="Masukkan alamat email.."
+                                                required>
+                                                @error('email')
+                                                    <div class="invalid-feedback">
+                                                     {{ $message }}
+    <                                               /div>
+                                                @enderror
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                id="inputPassword" name="password" placeholder="Password">
+                                            <input type="password" class="form-control form-control-user {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                                                id="inputPassword" name="password" placeholder="Password"
+                                                required>
+                                                @error('password')
+                                                    <div class="invalid-feedback">
+                                                     {{ $message }}
+    <                                               /div>
+                                                @enderror
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
