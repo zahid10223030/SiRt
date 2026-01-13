@@ -26,8 +26,14 @@ Route::post('/resident', [ResidentController::class, 'store'])->middleware('role
 Route::put('/resident/{id}', [ResidentController::class, 'update'])->middleware('role:Admin');
 Route::delete('/resident/{id}', [ResidentController::class, 'destroy'])->middleware('role:Admin');
 
-
+//akun list
 Route::get('/account-list', [UserController::class, 'account_list_view'])->middleware('role:Admin');
 
+//akun request
 Route::get('/account-request', [UserController::class, 'account_request_view'])->middleware('role:Admin');
 Route::post('/account-request/approval/{id}', [UserController::class, 'account_approval'])->middleware('role:Admin');
+
+//profil
+Route::get('/profile', [UserController::class, 'profile_view'])->middleware('role:Admin,User');
+Route::post('/profile/{id}', [UserController::class, 'update_profile'])->middleware('role:Admin,User');
+Route::get('/change-password', [UserController::class, 'change_password_view'])->middleware('role:Admin,User');
