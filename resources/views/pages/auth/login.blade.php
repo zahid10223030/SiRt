@@ -78,7 +78,9 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Selamat Datang!</h1>
                                     </div>
-                                    <form class="user" action="/login" method="POST">
+                                    <form class="user" action="/login" method="POST" 
+                                    onsubmit="const submitBtn = document.getElementById('submitBtn');
+                                    submitBtn.disabled = true; submitBtn.textContent = 'loading ....';">
                                         @csrf
                                         @method('POST')
                                         <div class="form-group">
@@ -102,12 +104,11 @@
     <                                               /div>
                                                 @enderror
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                        <button id="submitBtn" type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
                                         <hr>
                                     </form>
-                                    <hr>
                                     <div class="text-center">
                                         <a class="small" href="/register">Buat Akun!</a>
                                     </div>
