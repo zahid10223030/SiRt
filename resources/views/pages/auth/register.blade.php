@@ -69,7 +69,6 @@
                                         </button>
                                         <hr>
                                     </form>
-                                    <hr>
                                     <div class="text-center">
                                         <a class="small" href="/">Login!</a>
                                     </div>

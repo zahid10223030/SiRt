@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ResidentController extends Controller
 {
     public function index(){
-        $residents = Resident::with('user')->get();
+        $residents = Resident::with('user')->paginate(5);
 
 
         return view('pages.resident.index', [

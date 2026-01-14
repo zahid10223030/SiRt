@@ -84,7 +84,7 @@ class AuthController extends Controller
         $user->role_id = 2; // User (penduduk)
         $user->saveOrFail();
 
-        return redirect('/')->with('success', 'Berhasil mendafatarkan akun, 
+        return redirect('/')->with('success', 'Berhasil mendafatrkan akun, 
         menunggu persetujuan dari Admin');
     }
 
