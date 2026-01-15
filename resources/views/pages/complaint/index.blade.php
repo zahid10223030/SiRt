@@ -5,7 +5,7 @@
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Pengaduan</h1>
         <a href="/complaint/create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-        class="fas fa-plus fa-sm text-white-50"></i> Buat Aduan</a>
+        class="fas fa-plus fa-sm text-white-50"></i> Buat Aduan </a>
  </div>
 
         <!-- table -->
@@ -43,8 +43,13 @@
                                                         <td>{{ $item->status_label }}</td>
                                                         <td>
                                                                 @if (isset($item->photo_proof))
-                                                                        <img src="{{ $item->photo_proof }}" alt="Foto Bukti"
-                                                                        style="max-width: 300px;">
+                                                                @php
+                                                                        $filePath = 'storage/' . $item->photo_proof;
+                                                                @endphp
+                                                                        <a href="{{ $filePath }}" target="_blank" rel="noopener noreferrer">
+                                                                                <img src="{{ $filePath }}" alt="Foto Bukti"
+                                                                                style="max-width: 300px;">
+                                                                        </a>
                                                                 @else
                                                                 Tidak ada
                                                                 @endif
