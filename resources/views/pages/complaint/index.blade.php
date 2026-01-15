@@ -3,9 +3,9 @@
 @section('content')
  <!-- Page Heading -->
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Data penduduk</h1>
-        <a href="/resident/create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-        class="fas fa-plus fa-sm text-white-50"></i> Tambah</a>
+        <h1 class="h3 mb-0 text-gray-800">Pengaduan</h1>
+        <a href="/complaint/create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+        class="fas fa-plus fa-sm text-white-50"></i> Buat Aduan</a>
  </div>
 
         <!-- table -->
@@ -17,20 +17,15 @@
                                               <thead>
                                                 <tr>
                                                         <th>No</th>
-                                                        <th>NIK</th>
-                                                        <th>Nama</th>
-                                                        <th>Jenis Kelamin</th>
-                                                        <th>Tempat Tanggal Lahir</th>
-                                                        <th>Alamat</th>
-                                                        <th>Agama</th>
-                                                        <th>Status Perkawinan</th>
-                                                        <th>Pekerjaan</th>
-                                                        <th>No HP</th>
-                                                        <th>Status Penduduk</th>
+                                                        <th>Judul</th>
+                                                        <th>Isi Aduan</th>
+                                                        <th>Status</th>
+                                                        <th>Foto Bukti</th>
+                                                        <th>Tanggal Laporan</th>
                                                         <th>Aksi</th>
                                                 </tr>
                                               </thead>
-                                              @if (count($residents) < 1)
+                                              @if (count($complaints) < 1)
                                                 <tbody>
                                                         <tr>
                                                                  <td colspan="11">
@@ -40,49 +35,43 @@
                                                 </tbody>
                                               @else
                                               <tbody>
-                                                @foreach ($residents as $item)
+                                                @foreach ($complaints as $item)
                                                 <tr>
-                                                        <td>{{ $loop->iteration + $residents->firstItem() - 1 }}</td>
-                                                        <td>{{ $item->nik }}</td>
-                                                        <td>{{ $item->nama }}</td>
-                                                        <td>{{ $item->gender }}</td>
-                                                        <td>{{ $item->tempat_lahir }}, {{ $item->tanggal_lahir}}</td>
-                                                        <td>{{ $item->alamat }}</td>
-                                                        <td>{{ $item->agama }}</td>
-                                                        <td>{{ $item->status_perkawinan }}</td>
-                                                        <td>{{ $item->pekerjaan }}</td>
-                                                        <td>{{ $item->no_hp }}</td>
-                                                        <td>{{ $item->status }}</td>
+                                                        <td>{{ $loop->iteration + $complaints->firstItem() - 1 }}</td>
+                                                        <td>{{ $item->title }}</td>
+                                                        <td>{!! wordwrap($item->content, 50, "<br>\n") !!}</td>
+                                                        <td>{{ $item->status_label }}</td>
+                                                        <td>
+                                                                @if (isset($item->photo_proof))
+                                                                        <img src="{{ $item->photo_proof }}" alt="Foto Bukti"
+                                                                        style="max-width: 300px;">
+                                                                @else
+                                                                Tidak ada
+                                                                @endif
+                                                        </td>
+                                                        <td>{{ $item->report_date_label }}</td>
                                                         <td>
                                                                 <div class="d-flex align-items-center" style="gap: 10px;">
-                                                                        <a href="/resident/{{ $item->id }}" class="d-inline-block btn btn-sm btn-warning">
+                                                                        <a href="/complaint/{{ $item->id }}" class="d-inline-block btn btn-sm btn-warning">
                                                                                 <i class="fas fa-pen"></i>
                                                                         </a>
                                                                         <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" 
                                                                         data-bs-target="#confirmationDelete-{{ $item->id }}">
                                                                                 <i class="fas fa-eraser"></i>
                                                                         </button>
-                                                                        @if (!is_null($item->user_id))
-
-                                                                        <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" 
-                                                                        data-bs-target="#detailAccount-{{ $item->id }}">
-                                                                        Lihat Akun
-                                                                        </button>
-                                                                        @include('pages.resident.detail-account')
-                                                                        @endif
                                                                 </div>
                                                         </td>
                                                 </tr>
-                                                @include('pages.resident.confirmation-delete')
+                                                @include('pages.complaint.confirmation-delete')
                                                 
                                                 @endforeach
                                               </tbody>  
                                               @endif
                                         </table>
                                 </div>
-                                @if ($residents->lastPage() > 1)
+                                @if ($complaints->lastPage() > 1)
                                 <div class="card-footer">
-                                        {{ $residents->links('pagination::bootstrap-5') }}
+                                        {{ $complaints->links('pagination::bootstrap-5') }}
                                 </div>
                                 @endif
                         </div>
