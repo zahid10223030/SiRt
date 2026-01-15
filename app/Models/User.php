@@ -62,7 +62,7 @@ class User extends Authenticatable
             ->implode('');
     }
 
-    public function residents(){
-        return $this->hasMany(Resident::class);
+    public function resident(){
+        return $this->hasOne(Resident::class);
     }
 }
