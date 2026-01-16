@@ -4,9 +4,30 @@
  <!-- Page Heading -->
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Pengaduan</h1>
+
+        @if(isset(auth()->user()->resident))
         <a href="/complaint/create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
         class="fas fa-plus fa-sm text-white-50"></i> Buat Aduan </a>
+        @endif
  </div>
+ @if (session('success'))
+        <script>
+                Swal.fire({
+                        title: "Berhasil",
+                        text: "{{ session()->get('success') }}",
+                        icon: "success",
+                });
+        </script>
+ @endif
+ @if (session('error'))
+        <script>
+                Swal.fire({
+                        title: "Terjadi Kesalahan",
+                        text: "{{ session()->get('error') }}",
+                        icon: "error",
+                });
+        </script>
+ @endif
 
         <!-- table -->
          <div class="row">
@@ -56,6 +77,7 @@
                                                         </td>
                                                         <td>{{ $item->report_date_label }}</td>
                                                         <td>
+                                                        @if(auth()->user()->role_id == 2 && isset(auth()->user()->resident) && $item->status == 'new')
                                                                 <div class="d-flex align-items-center" style="gap: 10px;">
                                                                         <a href="/complaint/{{ $item->id }}" class="d-inline-block btn btn-sm btn-warning">
                                                                                 <i class="fas fa-pen"></i>
@@ -65,6 +87,39 @@
                                                                                 <i class="fas fa-eraser"></i>
                                                                         </button>
                                                                 </div>
+                                                        @elseif(auth()->user()->role_id == 1)
+                                                                <div>
+                                                                        <form id="formChangeStatus-{{ $item->id }}" action="/complaint/update-status/ {{ $item->id }}" method="post">
+                                                                        @csrf
+                                                                        @method('POST')
+                                                                                <div class="form-group">
+                                                                                        <select name="status" id="status-{{ $item->id }}" class="form-control" style="min-width: 150px;"
+                                                                                        oninput="document.getElementById('formChangeStatus-{{ $item->id }}').submit()">
+                                                                                         @foreach([
+                                                                                                        (object)[
+                                                                                                                'label' => 'Baru',
+                                                                                                                'value' => 'new',
+                                                                                                                ],
+                                                                                                        (object)[
+                                                                                                                'label' => 'Sedang Diproses',
+                                                                                                                'value' => 'processing',
+                                                                                                                ],
+                                                                                                        (object)[
+                                                                                                                'label' => 'Selesai',
+                                                                                                                'value' => 'completed',
+                                                                                                                ],
+                                                                                         ] as $status)
+                                                                                                <option value="{{ $status->value }}" 
+                                                                                                @selected($item->status == $status->value)>
+                                                                                                        {{ $status->label }}
+                                                                                                </option>
+                                                                                         @endforeach
+                                                                                        </select>
+                                                                                </div>
+                                                                        </form>
+                                                                </div>
+                                                                
+                                                        @endif
                                                         </td>
                                                 </tr>
                                                 @include('pages.complaint.confirmation-delete')
