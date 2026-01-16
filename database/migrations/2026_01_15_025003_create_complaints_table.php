@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('resident_id');
             $table->string('title');
             $table->text('content');
-            $table->enum('status', ['new', 'prcessing', 'completed'])->default('new');
+            $table->enum('status', ['new', 'processing', 'completed'])->default('new');
             $table->string('photo_proof')->nullable();
             $table->timestamp('report_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamps();

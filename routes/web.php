@@ -40,9 +40,11 @@ Route::post('/profile/{id}', [UserController::class, 'update_profile'])->middlew
 Route::get('/change-password', [UserController::class, 'change_password_view'])->middleware('role:Admin,User');
 Route::post('/change-password/{id}', [UserController::class, 'change_password'])->middleware('role:Admin,User');
 
+//complaint
 Route::get('/complaint', [ComplaintController::class, 'index'])->middleware('role:Admin,User');
 Route::get('/complaint/create', [ComplaintController::class, 'create'])->middleware('role:User');
 Route::get('/complaint/{id}', [ComplaintController::class, 'edit'])->middleware('role:User');
 Route::post('/complaint', [ComplaintController::class, 'store'])->middleware('role:User');
 Route::put('/complaint/{id}', [ComplaintController::class, 'update'])->middleware('role:User');
 Route::delete('/complaint/{id}', [ComplaintController::class, 'destroy'])->middleware('role:User');
+Route::post('/complaint/update-status/{id}', [ComplaintController::class, 'update_status'])->middleware('role:Admin');
