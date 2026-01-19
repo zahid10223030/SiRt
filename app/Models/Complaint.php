@@ -23,4 +23,20 @@ class Complaint extends Model
     {
         return \Carbon\Carbon::parse($this->report_date)->format('d M Y, H:i:s');
     }
+
+    public function getStatusColorAttribute()//status-color
+    {
+        return match ($this->status)
+        {
+            'new' => 'info',
+            'processing' => 'warning',
+            'completed' => 'success',
+            default => 'secondary',
+        };
+    }
+
+    public function resident()
+    {
+        return $this->belongsTo(Resident::class);
+    }
 }

@@ -65,4 +65,10 @@ class User extends Authenticatable
     public function resident(){
         return $this->hasOne(Resident::class);
     }
+
+    // Di dalam class User
+    public function announcements()
+    {
+        return $this->hasMany(Announcement::class, 'created_by');
+    }
 }
