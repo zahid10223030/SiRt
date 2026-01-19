@@ -4,7 +4,13 @@
                   (object)[
                     'title' => 'Dashboard',
                     'path' => 'dashboard',
+                    'route' => 'dashboard',
                     'icon' => 'fas fa-fw fa-tachometer-alt',
+                    ],  
+                  (object)[
+                    'title' => 'Pengumuman',
+                    'path' => 'announcement',
+                    'icon' => 'fas fa-fw fa-bullhorn',
                     ],  
                   (object)[
                     'title' => 'Penduduk',
@@ -21,22 +27,38 @@
                     'path' => 'account-request',
                     'icon' => 'fas fa-fw fa-user',
                     ],
-                    (object)[
+                  (object)[
                     'title' => 'Aduan Warga',
                     'path' => 'complaint',
                     'icon' => 'fas fa-fw fa-scroll',
-                    ],  
+                    ],
+                  (object)[
+                    'title' => 'Daftar Surat',
+                    'path' => 'letter',
+                    'icon' => 'fas fa-fw fa-envelope',
+                    ],
                 ],
                 2 => [
                   (object)[
                     'title' => 'Dashboard',
                     'path' => 'dashboard',
+                    'route' => 'dashboard',
                     'icon' => 'fas fa-fw fa-tachometer-alt',
+                    ],
+                  (object)[
+                    'title' => 'Pengumuman',
+                    'path' => 'announcement',
+                    'icon' => 'fas fa-fw fa-bullhorn',
                     ],    
                   (object)[
                     'title' => 'Pengaduan',
                     'path' => 'complaint',
                     'icon' => 'fas fa-fw fa-scroll',
+                    ],    
+                  (object)[
+                    'title' => 'Ajukan Surat',
+                    'path' => 'letter',
+                    'icon' => 'fas fa-fw fa-envelope',
                     ],    
                 ],
             ];

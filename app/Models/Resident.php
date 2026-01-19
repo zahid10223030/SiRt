@@ -13,4 +13,14 @@ class Resident extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function complaints()
+    {
+        return $this->hasMany(Complaint::class);
+    }
+
+    public function letters()
+    {
+    return $this->hasMany(Letter::class);
+    }
 }

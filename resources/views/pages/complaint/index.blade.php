@@ -3,7 +3,7 @@
 @section('content')
  <!-- Page Heading -->
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Pengaduan</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ auth()->user()->role_id == 1 ? 'Aduan Warga' : 'Aduan' }}</h1>
 
         @if(isset(auth()->user()->resident))
         <a href="/complaint/create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
@@ -38,6 +38,9 @@
                                               <thead>
                                                 <tr>
                                                         <th>No</th>
+                                                        @if(auth()->user()->role_id == 1)
+                                                                <th>Nama Penduduk</th>
+                                                        @endif
                                                         <th>Judul</th>
                                                         <th>Isi Aduan</th>
                                                         <th>Status</th>
@@ -59,9 +62,16 @@
                                                 @foreach ($complaints as $item)
                                                 <tr>
                                                         <td>{{ $loop->iteration + $complaints->firstItem() - 1 }}</td>
+                                                        @if(auth()->user()->role_id == 1)
+                                                                <td>{{ $item->resident->nama }}</td>
+                                                        @endif
                                                         <td>{{ $item->title }}</td>
                                                         <td>{!! wordwrap($item->content, 50, "<br>\n") !!}</td>
-                                                        <td>{{ $item->status_label }}</td>
+                                                        <td>
+                                                                <span class="badge badge-{{ $item->status_color }}">
+                                                                {{ $item->status_label }}
+                                                                </span>
+                                                        </td>
                                                         <td>
                                                                 @if (isset($item->photo_proof))
                                                                 @php
